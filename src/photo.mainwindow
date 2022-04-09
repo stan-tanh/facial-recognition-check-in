@@ -1,0 +1,15 @@
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    ui->label_photo->setGeometry(0,0,400,400);
+    connect(&_photo, SIGNAL(takeAPhotoReply(QPixmap)), this, SLOT(takeAPhonoReply(QPixmap)));
+ 
+}
+
+
+void MainWindow::on_pushButton_phono_clicked()
+{
+    _photo.takeAPhoto();
+}
