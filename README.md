@@ -6,7 +6,7 @@
 **B020201 USB Camera**<br>
 ![Image text](https://github.com/stan-tanh/facial-recognition-check-in/raw/main/images/Camera.png)
 
-**Install the QT development environment
+**Install the QT development environment**
 
 On the CLI, run the following commands to install:
 ```
