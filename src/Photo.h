@@ -23,4 +23,4 @@ private:
     int _width;
     int _height;
     int _time;
-};
+}
