@@ -8,15 +8,15 @@
 
 using namespace cv;
 int function_choose = 0;
-cv::Mat image_show;  //全局变量，用来显示
+cv::Mat image_show;  //Global variable used to display
 extern int flag_dealok;
 QString face_result = "None";
 
 
 /*
- * 这个文件是多线程，采集图像
- * 通过  界面按钮将flag  置不同的 功能，然后在 thread中 执行
- * 主要有三个功能，样本采集、 模型训练、人脸识别
+ * This file is multithreaded to capture images
+ * Set flags to different functions through interface buttons, and then execute them in Thread
+ * It has three main functions, sample collection, model training and face recognition
  */
 
 ThreadDeal::ThreadDeal()
@@ -25,7 +25,7 @@ ThreadDeal::ThreadDeal()
 }
 
 
-//按键开始后，开始该线程（图像处理线程）
+//After the button starts, start the thread (image processing thread)
 void ThreadDeal::run()
 {
     people_face p;
@@ -36,7 +36,7 @@ void ThreadDeal::run()
     int count = 0;
     int if_detect_ok = 0;
     
-    p.deal_init();//初始化处理算法
+    p.deal_init();//Initialize the processing algorithm
 
     VideoCapture capture(0);
     capture.set(cv::CAP_PROP_FRAME_WIDTH, 640);
@@ -52,32 +52,32 @@ void ThreadDeal::run()
     while (true) {
 
         capture >> frame; //get image for capture
-        flip(frame, frame, 1);//lr镜像翻转
+        flip(frame, frame, 1);//Lr mirror flip
         save_frame = frame.clone();
-        //一直开始检测
+        //Start testing all the time
         faces = p.start_detect(frame,function_choose);    
         image_show = frame.clone();
 
         switch (function_choose) { //key return flag
         case RUN_GETSANPLES:
             //std::cout << "get samples!" << std::endl;
-            if_detect_ok = p.save_FaceSamples(save_frame,count);                    //这里修改参数，采集的个数１００;个人测试１００差不多 ***************************************************************************
+            if_detect_ok = p.save_FaceSamples(save_frame,count);            //Here modify the parameter, the number of collection 100; Personal test 100 is about the same ***************************************************************************
             count += if_detect_ok;
             function_choose = RUN_GETSANPLES;
-            if (count >= 100)//这里除以5，就是存取样本数  500->save 100 images
+            if (count >= 100)//Divide this by 5, that's how many samples you can access  500->save 100 images
                 function_choose = -100;//quit RUN_GETSANPLES
             image_show = save_frame.clone();                  //to  show image
             break;
         case RUN_TRAINER:
             count = 0;
             std::cout << "train!" << std::endl;
-            p.get_csvfile();         //得到描述文件
-            p.start_train();         //开始训练
+            p.get_csvfile();         //Get the description file
+            p.start_train();         //Start training
             function_choose = -100;//quit RUN_TRAINER
             break;  
         case RUN_PREDICT:
             std::cout << "predict!" << std::endl;
-            result_face = p.start_predict(save_frame,faces);        //开始预测
+            result_face = p.start_predict(save_frame,faces);        //To predict
 
             face_result = QString::fromStdString(result_face);  // string to qstring
             image_show = save_frame.clone();                  //to  show image
