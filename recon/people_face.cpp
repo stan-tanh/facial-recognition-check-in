@@ -135,7 +135,7 @@ bool people_face::start_train()
     xmlfile.open(filepath, ios::in);                 //Make appropriate selection according to needs ios::in|ios::out|ios::binary
     if (xmlfile)                  //Determine if the trained xml exists 
     {
-        std::cout <<"xml已存在，即将覆盖" <<std::endl;
+        std::cout <<"xml already exists，covered soon" <<std::endl;
         xmlfile.close();
         //return 0;
     }
