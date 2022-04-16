@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2019-04-03T15:54:39
+# Project created by QtCreator 
 #
 #-------------------------------------------------
 
@@ -48,8 +48,8 @@ FORMS += \
     login.ui \
     register.ui
 
-#pkg-config --cflags opencv    // 查看头文件目录
-#pkg-config --libs opencv      // 查找库文件
+#pkg-config --cflags opencv    // searching head files
+#pkg-config --libs opencv      // searching libs
 #opencv
 INCLUDEPATH += /usr/local/include/opencv4 \
                 /usr/local/include/opencv4/opencv2
