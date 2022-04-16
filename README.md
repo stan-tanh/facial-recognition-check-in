@@ -1,4 +1,4 @@
-# Facial Recognition Check in System
+<h1 align="center">Facial Recognition Check in System</h1>
 
 ## Introductions:
 Face recognition is a kind of biometric recognition technology that is based on the identity of people's facial feature information. At present, a lot of research have been carried out on face recognition systems, but mainly based on PC architecture recognition technology, for some special occasions, portability and flexibility are not enough. To this end, this project introduces a real-time processing face recognition system based on embedded technology.
