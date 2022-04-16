@@ -24,7 +24,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     QTimer *timer;
-    QTimer *timerlabel; //计时显示状态
+    QTimer *timerlabel; //Timing display status
     QTimer *timer_now;
     QTimer *timer_item;
 
