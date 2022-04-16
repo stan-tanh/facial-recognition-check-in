@@ -10,41 +10,41 @@ class people_face
 public:
     people_face();
 
-    //dirent.h生成 csv文件 失败！！！
+    //dirent.h Failed to generate CSV file!!
     void get_csvfile();
 
-    //调用py库生成 csv文件
+    //Call the PY library to generate a CSV file
     void runPy_getcsv();
 
     /*
-        人脸检测，保存样本。
-        输入参数：样本数量
+        Face detection, sample preservation.
+        Input parameter: number of samples
     */
     int save_FaceSamples(cv::Mat frame,int count);
 
     /*
-        返回 0 ，不训练，直接读取成功；
-        返回 1 ，进行训练，再预测。
-        进行训练之前需要先删除已存在的 xml 文件，或者改名。
+        Return 0, no training, directly read success;
+        Return 1, train, and predict.
+        Delete the existing XML file or rename it before performing the training.
     */
     bool start_train();
 
 
 
 
-    //人脸识别预测函数
+    //Face recognition prediction function
     std::string start_predict(Mat frame,std::vector<Rect> faces);
 
-    //初始化一些参数，加载识别分类器，加载检测分类器
+    //Initialize some parameters, load identification classifier, load detection classifier
     int deal_init();
 
-    //人脸检测函数
+    //Face detection function
     std::vector<Rect> start_detect(cv::Mat frame,int function_choose);
 
-    //检测分类器
+    //Detection classifier
     cv::CascadeClassifier faceDetector;
 
-    //识别分类器
+    //Recognition classifier
     cv::Ptr<FaceRecognizer> model = LBPHFaceRecognizer::create();
 
 
