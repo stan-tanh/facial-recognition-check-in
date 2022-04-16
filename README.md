@@ -70,7 +70,7 @@ This project is established by students from University of Glasgow:
 - [Jingyu Wu, 2492041W](https://github.com/Whatsssssup)
 
 # Social Media:
-<br><a href="https://youtu.be/hAqNX1u65mk" target="blank"><img align="left" src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" height="40" width="40"/>
+<br><a href="https://www.youtube.com/" target="blank"><img align="left" src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" height="40" width="40"/>
 </a>
 <a href="https://www.instagram.com/FacialRecog/">
 <img align="left" alt="Mitul's LinkedIN" width= "40px" src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" />
