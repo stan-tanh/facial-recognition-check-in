@@ -11,9 +11,9 @@ extern QString face_result;
 extern cv::Mat image_show;
 extern int flag_dealok;
 extern int function_choose;
-//Qt中的UI操作，比如QMainWindow、QWidget之类的创建、操作，只能位于主线程！
-//这个限制意味着你不能在新的线程中使用QDialog、QMessageBox等。比如在新线程中复制文件出错，想弹出对话框警告？可以，但是必须将错误信息传到主线程，由主线程实现对话框警告。
-//因此一般思路是，主线程负责提供界面，子线程负责无UI的单一任务，通过“信号-槽”与主线程交互。
+//UI operations in Qt, such as QMainWindow, QWidget creation, operation, can only be in the main thread.
+//This limitation means that you cannot use QDialog, QMessageBox, etc in new threads. Want to pop up a dialog box warning about copying files in a new thread? Yes, but you must pass the error message to the main thread, which implements the dialog box warning.
+//So the general idea is that the main thread is responsible for providing the interface, while sub-threads are responsible for a single task without UI, interacting with the main thread through a "signal-slot."
 
 //QPalette bgpal = palette();
 
@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //初始化
+    //Initialize it
     timerlabel = new QTimer(this);
     timer = new QTimer(this);
     timer_now = new QTimer(this);
@@ -42,8 +42,8 @@ MainWindow::MainWindow(QWidget *parent) :
     timer_item->start(100);
     connect(timer_item,SIGNAL(timeout()),this,SLOT(updateItem()));
 
-    connect(timer,SIGNAL(timeout()),this,SLOT(ShowImg_Label()));    //定时显示
-    connect(timerlabel,SIGNAL(timeout()),this,SLOT(ShowLabels()));    //定时显示
+    connect(timer,SIGNAL(timeout()),this,SLOT(ShowImg_Label()));    //Time display
+    connect(timerlabel,SIGNAL(timeout()),this,SLOT(ShowLabels()));    //Time display
 
     ui->samples->setText(" ");
     ui->trainer->setText(" ");
@@ -55,16 +55,15 @@ MainWindow::MainWindow(QWidget *parent) :
     //table widght
     QStringList headList;
     headList<<"name"<<"time";
-    ui->tableWidget->setColumnCount(2);//设置列数
-    ui->tableWidget->setRowCount(100);//设置行数
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);//自适应列宽
-    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);//表格不能被编辑
-    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);//整行选中效果
-    ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);//设置为只能单选
-    ui->tableWidget->verticalHeader()->setVisible(false);   //隐藏列表头
-    //ui->tableWidget->horizontalHeader()->setVisible(false); //隐藏行表头
-    ui->tableWidget->setHorizontalHeaderLabels(headList);//设置表头
-
+    ui->tableWidget->setColumnCount(2);//Set the number of columns
+    ui->tableWidget->setRowCount(100);//Set the number of columns
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);//Adaptive column width
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);//Tables cannot be edited
+    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);//The entire row is selected
+    ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);//Set this parameter to only one option
+    ui->tableWidget->verticalHeader()->setVisible(false);   //Hide the list header
+    //ui->tableWidget->horizontalHeader()->setVisible(false); //Hide the row header
+    ui->tableWidget->setHorizontalHeaderLabels(headList);//Set the header
     ui->nowtime->setFont(QFont("Timers" , 20 ,  QFont::Thin));
 
 }
@@ -73,7 +72,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-//加的label显示图像
+//The added label displays the image
 void MainWindow::ShowImg_Label()
 {   
     if(flag_dealok){// if deal finished
@@ -105,7 +104,7 @@ void MainWindow::updateItem()
         if(face_result != "unkown"){
             QDateTime time = QDateTime::currentDateTime();
             QString str = time.toString("hh:mm:ss");
-            //插入元素
+            //Insert elements
             ui->tableWidget->setItem(count_item,0,new QTableWidgetItem(face_result));
             ui->tableWidget->setItem(count_item,1,new QTableWidgetItem(str));
             count_item++;
@@ -114,10 +113,10 @@ void MainWindow::updateItem()
     }
 }
 
-//想定时显示按键后的ｌａｂｅｌ，可是在按键槽函数内会导致ｕｉ卡死。
+//Want to show the label after the key, but in the keyway function will cause the UI stuck.
 void MainWindow::ShowLabels()
 {
-    static int i = 0;                //采集完成标志
+    static int i = 0;                //Collection completion mark
     static int j= 0;
     //std::cout << "flag="<<function_choose<<std::endl;
     switch (function_choose) {
@@ -142,9 +141,9 @@ void MainWindow::ShowLabels()
             ui->samples->setText(" ");
         }
         break;
-    case -100:                             //线程执行完成
+    case -100:                             //Thread completion
         if(i&&!j){
-                ui->samples->setText("complete!");//采集完成
+                ui->samples->setText("complete!");//Collect complete
                 ui->StartTrain->setEnabled(1);
                 ui->GetSamples->setEnabled(1);
                 ui->StartRecognize->setEnabled(0);
@@ -154,7 +153,7 @@ void MainWindow::ShowLabels()
                 sleep(2);
                 ui->samples->setText(" ");
         }
-        else if(j&&!i){                      //训练完成
+        else if(j&&!i){                      //Complete the training
             ui->trainer->setText("Train Finished!");
             ui->StartTrain->setEnabled(0);
             ui->GetSamples->setEnabled(0);
@@ -172,7 +171,7 @@ void MainWindow::ShowLabels()
 
 }
 
-extern int recognize_stop; // 1 停止显示
+extern int recognize_stop; // 1 To stop showing
 void MainWindow::on_StartRecognize_clicked()
 {
     ui->StartTrain->setEnabled(0);
@@ -183,7 +182,7 @@ void MainWindow::on_StartRecognize_clicked()
     recognize_stop = 0;
 }
 
-//start 开始 停止
+//start To stop
 void MainWindow::on_start_clicked()
 {
     static int first_start = 0;
@@ -246,10 +245,10 @@ void MainWindow::on_GetSamples_clicked()
 //    dialog = new Dialog(this);
 //    //dialog->setModal(false);
 ////    /*
-////     * 模态对话框（Modal Dialog）与非模态对话框（Modeless Dialog）的概念不是Qt所独有的，在各种不同的平台下都存在。
-////     * 又有叫法是称为模式对话框，无模式对话框等。
-////     * 所谓模态对话框就是在其没有被关闭之前，用户不能与同一个应用程序的其他窗口进行交互，直到该对话框关闭。
-////     * 对于非模态对话框，当被打开时，用户既可选择和该对话框进行交互，也可以选择同应用程序的其他窗口交互。
+////     * The concepts of Modal Dialog and Modeless Dialog are not unique to Qt and exist on a variety of platforms.
+////     * It is also called mode dialog box, no mode dialog box, etc.
+////     * A modal dialog box is one in which the user cannot interact with other Windows in the same application until the dialog box is closed.
+////     * For modeless dialogs, when opened, the user can choose to interact either with the dialogs or with other Windows in the application.
 ////    */
 //    dialog->show();
 
