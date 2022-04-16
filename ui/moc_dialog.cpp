@@ -59,7 +59,7 @@ static const uint qt_meta_data_Dialog[] = {
  // slots: parameters
     QMetaType::Void,
 
-       0        // eod
+       0        //  eod
 };
 
 void Dialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
