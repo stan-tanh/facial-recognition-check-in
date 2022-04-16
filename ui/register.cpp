@@ -24,12 +24,12 @@ Register::~Register()
 
 void Register::on_rok_clicked()
 {
-    std::cout << "ok" <<std::endl;//打印
-    QString input_usr =  ui->rusrtext->text();//获取输入的用户名
-    QString input_pwd1 =  ui->rpwdtext1->text();//获取输入的密码
-    QString input_pwd2 =  ui->rpwdtext2->text();//获取输入的确定密码
+    std::cout << "ok" <<std::endl;//Print
+    QString input_usr =  ui->rusrtext->text();//Get the entered username
+    QString input_pwd1 =  ui->rpwdtext1->text();//Get the entered password
+    QString input_pwd2 =  ui->rpwdtext2->text();//Get the entered OK password
 
-    //下面是一些弹窗
+    //Here are some pop-ups
     if(input_usr == NULL){
         QMessageBox::critical(0 , "critical message" , "Please input name！", QMessageBox::Ok );
     }
@@ -37,9 +37,9 @@ void Register::on_rok_clicked()
         if (usrs.indexOf(input_usr) != -1) {
             QMessageBox::critical(0 , "critical message" , "The name is existed！", QMessageBox::Ok );
         }
-        else {//注册成功
+        else {//Register successfully
             if (input_pwd1 == input_pwd2){
-                //两次密码正确可以进行保存
+                //Two correct passwords can be saved
                 QString qline = input_usr;
                 qline = qline.append(' ');
                 qline = qline.append(input_pwd1);
