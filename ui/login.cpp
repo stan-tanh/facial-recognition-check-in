@@ -31,13 +31,14 @@ void Login::on_loginpb_clicked()
 {
     get_usrs(usrs,pwds);
     QString this_usrname;
-    int index = usrs.indexOf(ui->lusrtext->text());//ui->lusrtext->text()获取lusrtext输入框的内容；并找该内容是否在usrs的序号，-1则不在
-    if (index == -1){
-        QMessageBox::critical(NULL, "critical message" , "The usrname is not existed！", QMessageBox::Ok );//弹窗
+    int index = usrs.indexOf(ui->lusrtext->text());//ui->lusrtext->text()Get the content of the lusrtext input box; and find if the content is in the serial number of usrs, -1 is not
+    if (index == -1)
+    {
+        QMessageBox::critical(NULL, "critical message" , "The usrname is not existed！", QMessageBox::Ok );//pop-up window
     }
     else {
-        if (ui->lpwdtext->text() == pwds[index]){//获取密码输入，并判断是否等于数据库中的用户名对应的密码。
-            this_usrname = ui->lusrtext->text();//输入的用户名
+        if (ui->lpwdtext->text() == pwds[index]){//Get the password input and determine if it is equal to the password corresponding to the username in the database.
+            this_usrname = ui->lusrtext->text();//Username entered
 
             //开启登陆成功后的窗口
             dialog = new Dialog;
