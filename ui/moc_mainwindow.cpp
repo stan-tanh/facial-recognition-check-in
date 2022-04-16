@@ -33,7 +33,7 @@ static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
 QT_MOC_LITERAL(1, 11, 25), // "on_StartRecognize_clicked"
-QT_MOC_LITERAL(2, 37, 0), // ""
+QT_MOC_LITERAL(2, 37, 0), // " "
 QT_MOC_LITERAL(3, 38, 16), // "on_start_clicked"
 QT_MOC_LITERAL(4, 55, 21), // "on_GetSamples_clicked"
 QT_MOC_LITERAL(5, 77, 21), // "on_StartTrain_clicked"
