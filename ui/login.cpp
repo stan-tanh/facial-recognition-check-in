@@ -40,15 +40,15 @@ void Login::on_loginpb_clicked()
         if (ui->lpwdtext->text() == pwds[index]){//Get the password input and determine if it is equal to the password corresponding to the username in the database.
             this_usrname = ui->lusrtext->text();//Username entered
 
-            //开启登陆成功后的窗口
+            //Open the window after successful login
             dialog = new Dialog;
             dialog ->show();
 
-            this->close();//关闭现在的窗口
-            delete ui;//释放内存
+            this->close();//Close the current window
+            delete ui;//Free memory
         }
         else {
-            QMessageBox::critical(NULL, "critical message" , "Passwd error,Input again！", QMessageBox::Ok );//弹窗密码错误
+            QMessageBox::critical(NULL, "critical message" , "Passwd error,Input again！", QMessageBox::Ok );//Pop-up password error
         }
     }
 
