@@ -1,6 +1,6 @@
 <h1 align="center">Facial Recognition Check in System</h1>
 
-## Introductions:
+# Introductions:
 Face recognition is a kind of biometric recognition technology that is based on the identity of people's facial feature information. At present, a lot of research have been carried out on face recognition systems, but mainly based on PC architecture recognition technology, for some special occasions, portability and flexibility are not enough. To this end, this project introduces a real-time processing face recognition system based on embedded technology.
 
 The project aims to develop a time attendance system based on face recognition. The camera is used to automatically detect the face information of the attendance, and the openCV is used to process the collected face images and video streams, enter the user's face information, and the follow-up user will compare the collected real-time images with the pre-established face database when the camera passes again, and record the attendance information. This project uses the Raspberry Pi 4B as the hardware platform.
