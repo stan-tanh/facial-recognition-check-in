@@ -68,3 +68,8 @@ This project is established by students from University of Glasgow:
 - [Yandan Lai, 2714855L](https://github.com/HedgehogHut0)
 - [Ge Cheng, 2644025C](https://github.com/ChengGe010)
 - [Jingyu Wu, 2492041W](https://github.com/Whatsssssup)
+
+# Social Media:
+<a href="https://www.instagram.com/FacialRecog/">
+<img align="left" alt="Mitul's LinkedIN" width= "40px" src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" />
+</a>
