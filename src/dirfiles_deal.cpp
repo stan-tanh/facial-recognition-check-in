@@ -1,6 +1,6 @@
 
 /*
-    解决QString 和String 的转换
+     Resolves QString and String conversions
 QString s2q(const string &s)
 {
 return QString(QString::fromLocal8Bit(s.c_str()));
@@ -9,7 +9,7 @@ string q2s(const QString &s)
 {
 return string((const char *)s.toLocal8Bit());
 }
-    解决输入等待 flag_start_save
+    Resolve input wait for FLAG_STARt_save
 */
 
 #include <iostream>
@@ -36,13 +36,13 @@ extern string names_file;
 extern string listpath;
 extern string usr_manege;
 
-//str转qstr
+//Turn the str to qstr
 QString str2qstr(string str){
     return QString::fromStdString(str);
 }
 
 /*
-    返回名字、标签（根据"usr_manage.txt"）
+    Return name, label (according to "usr_manage.txt")
 */
 void get_usrs(QList<QString> &usrs,QList<QString> &pwds)
 {
@@ -59,8 +59,8 @@ void get_usrs(QList<QString> &usrs,QList<QString> &pwds)
             break;
         //lines.push_back(line.c_str());
         stringstream lines(line);
-        getline(lines, usr, separator);//获取样本名字
-        getline(lines, pwd);			//获取标签
+        getline(lines, usr, separator);//Get sample name
+        getline(lines, pwd);			//The label
         usrs.push_back(str2qstr(usr.c_str()));
         pwds.push_back(str2qstr(pwd.c_str()));
     }
@@ -70,7 +70,7 @@ void get_usrs(QList<QString> &usrs,QList<QString> &pwds)
 
 
 void write_usrs(QString line){
-    ofstream fo;                    	//写打开
+    ofstream fo;                    	//Write to open
     fo.open(usr_manege,ofstream::app);
     string strline = line.toStdString();
     fo<<strline<<endl;
@@ -78,8 +78,8 @@ void write_usrs(QString line){
 }
 
 /*
-    "names_file.txt"　文件中存储格式　　youjiang 0
-    新样本，增加在后面
+   The "namesfile. TXT" file is stored in format youjiang 0
+New samples, added later
 */
 bool save_samplename(string name){
 
@@ -98,8 +98,8 @@ bool save_samplename(string name){
         getline(f, line);
         //cout << line << endl;
         stringstream lines(line);
-        getline(lines, old_name, separator);//获取样本名字
-        getline(lines, classlabel);	//获取标签
+        getline(lines, old_name, separator);//Get sample name
+        getline(lines, classlabel);	//The label
         if(name == old_name)
             return 0;
         if(!classlabel.empty())
@@ -109,7 +109,7 @@ bool save_samplename(string name){
     }
     f.close();
 
-    ofstream fo;                    	//写打开
+    ofstream fo;                    	//Write to open
     fo.open(names_file,ofstream::app);
     last_label ++;
     fo<<name<<separator<<last_label<<endl;
@@ -118,9 +118,9 @@ bool save_samplename(string name){
 }
 
 /*
-    返回名字、标签（根据"names_file.txt"）
+    Return name, label (according to "namesfile.txt")
 
-    使用方法：
+    Usage:
         vector<string> m;
         read_names(m);
 */
@@ -139,8 +139,8 @@ void read_names(vector<string> &name,vector<int> &label)
             break;
         //lines.push_back(line.c_str());
         stringstream lines(line);
-        getline(lines, old_name, separator);//获取样本名字
-        getline(lines, classlabel);			//获取标签
+        getline(lines, old_name, separator);//Get sample name
+        getline(lines, classlabel);			//The label
         name.push_back(old_name.c_str());
         label.push_back(atoi(classlabel.c_str()));
     }
@@ -148,11 +148,11 @@ void read_names(vector<string> &name,vector<int> &label)
 }
 
 /*
-    得到文件夹的描述文件　csv
-    这里主要是文件操作，流程为：
-    １、读取我的ｔｘｔ文件里的名字列表，这些就是我需要遍历的子文件夹
-    ２、子文件夹里遍历文件
-    ３、记录遍历的文件
+    Get the folder description file CSV
+    Here is mainly file operation, and the process is as follows:
+   1, read the list of names in my TXT file, these are the subfolders I need to traverse
+   2, traversal files in subfolders
+   3，Document traversal
 */
 void get_namescsv()
 {
@@ -172,10 +172,10 @@ void get_namescsv()
         m[i] =  mum_path+"/"+ m[i];
         cout << m[i].c_str() << "  "<<l[i]<<endl;
         dir = opendir(m[i].c_str());
-        while((ptr = readdir(dir)) != NULL) //循环读取目录数据 //（为什么这个遍历机制不会在扫描完成之前重复扫描）!!!很好用
+        while((ptr = readdir(dir)) != NULL) //Cyclic reading of directory data //
         {
-            filename = ptr->d_name; 		//输出文件名
-            if(filename[0] == '.')			//过滤隐藏文件
+            filename = ptr->d_name; 		//Output file name
+            if(filename[0] == '.')			//Filtering hidden files
                 continue;
 /*
             if(!num)
