@@ -27,7 +27,7 @@ using namespace std;
  */
 
 string filepath = "./label/trainer.yml";//customer face recognize model
-string haar_face_datapath = "/home/pi/opencv/opencv-4.5.0/data/haarcascades/haarcascade_frontalface_alt.xml";//人脸检测分类器位置
+string haar_face_datapath = "/home/pi/opencv/opencv-4.5.0/data/haarcascades/haarcascade_frontalface_alt.xml";//location for Face detection classifier
 string listpath = "./label/train_list.csv";//Csv file location (text consisting of image path and label)  //train_list
 
 string facesdir = "./face";
@@ -35,9 +35,9 @@ string names_file = "./label/face_recognizenames_file.txt";
 string usr_manege = "./manage_usrs.txt";
 
 
-//cv::Mat image_show;  //全局变量，用来显示
-int flag_dealok = 0; //可以传递图片到label的标志
-int flag_start_save = 0; //开始保存图片
+//cv::Mat image_show;  //A global variable which is used for display
+int flag_dealok = 0; //flag which passes pictures to lable
+int flag_start_save = 0; //saving picture
 int recognize_stop = 0;
 
 
@@ -66,36 +66,34 @@ people_face::people_face()
 
 }
 
-//这个函数是调用　dirfiles_deal.cpp 里面生成文件夹描述文件的函数
-//功能：生成描述文件　　train_list.csv　里面
+//This function calls the folder description file which generates from   dirfiles_deal.cpp   file
+//Function: Generate description file　　train_list.csv
 void people_face::get_csvfile()
 {
     get_namescsv();
 }
 
 /*
-    人脸检测，保存样本。
-    输入参数：样本数量
+    Face detection, samples saving.     
+    Input parameter: Sample number
 */
 int people_face::save_FaceSamples(Mat frame,int count)
 {
     string face_id;
-    face_id = q2s(samplename);         //输入的样本名字
-    save_samplename(face_id);              //记录已录入的样本名字和标签
-    //std::cout << face_id<< "input ok!" <<std::endl;;
-
-    //cout <<"\n 看着摄像头，并等待 ..."<<endl;
+    face_id = q2s(samplename);         //sample name which was input 
+    save_samplename(face_id);              //Save the name and label of the sample that has been input
+   
     Mat gray;
     vector<Rect>faces;
     int	num = 0;
     int if_detect_ok = 0;
 
-    //检测人脸并将人脸作为样本存入
+    //Detect faces and save faces as samples
          cv::cvtColor(frame,gray,COLOR_BGR2GRAY);
-         //cv::imshow("gray",gray);                        //灰度化显示 
+         //cv::imshow("gray",gray);                        //Grayscale display 
 
          cv::equalizeHist(gray,gray);
-         //cv::imshow("equalizeHist",gray);               //直方图均衡化显示
+         //cv::imshow("equalizeHist",gray);               //Histogram balanced 
 
          faceDetector.detectMultiScale(gray, faces,1.2,3);// detect face
          for (int i = 0; i < faces.size(); i++)
@@ -105,11 +103,12 @@ int people_face::save_FaceSamples(Mat frame,int count)
                  num++;
                  Mat dst;
                  resize(frame(faces[i]), dst, Size(100, 100));// resize to norm size
-                 cvtColor(dst, dst, COLOR_BGR2GRAY);// 灰度化
-                 string path = facesdir + "/"+ face_id + "/";	//新文件夹路径
+                 cvtColor(dst, dst, COLOR_BGR2GRAY);// Grayscale
+                 string path = facesdir + "/"+ face_id + "/";	//The new folder path
 		if (count == 5)
-                 	mkdir(path.c_str(),S_IRWXU);//创建人名为文件名的新文件夹
-                 imwrite( path + face_id +"_"+ to_string(int(count/5)) + ".jpg",dst);	//在对应文件夹中写入对应人的图片（如：名为‘小明’的文件夹中存入小明的图片）
+                 	mkdir(path.c_str(),S_IRWXU);//Create a new folder with a name for the file name
+                 imwrite( path + face_id +"_"+ to_string(int(count/5)) + ".jpg",dst);	
+		 //Write pictures of the corresponding people in the corresponding folder (for example, save Bob's pictures in the folder named 'Bob')
                  cout << "get samples!" << endl;
              }
              rectangle(frame, faces[i], Scalar(0, 0, 255), 2, 8, 0);//框出人脸
@@ -126,15 +125,15 @@ int people_face::save_FaceSamples(Mat frame,int count)
 
 
 /*
-    返回 0 ，不训练，直接读取成功；
-    返回 1 ，进行训练，再预测。
-    进行训练之前需要先删除已存在的 xml 文件，或者改名。
+    Returns 0, don't proceed training, read successfully; 
+    returns 1, proceed training, and then predict.     
+    Before training, the xml file that already exists needs to be deleted, or the name needs to be changed 
 */
 bool people_face::start_train()
 {
     fstream xmlfile;
-    xmlfile.open(filepath, ios::in);                 //根据自己需要进行适当的选取 ios::in|ios::out|ios::binary
-    if (xmlfile)                  //存在训练好的xml
+    xmlfile.open(filepath, ios::in);                 //Make appropriate selection according to needs ios::in|ios::out|ios::binary
+    if (xmlfile)                  //Determine if the trained xml exists 
     {
         std::cout <<"xml已存在，即将覆盖" <<std::endl;
         xmlfile.close();
@@ -159,8 +158,8 @@ bool people_face::start_train()
 
         //cout << line << endl;
         stringstream lines(line);
-        getline(lines, path, separator);//获取样本图片路径
-        getline(lines, classlabel);//获取标签
+        getline(lines, path, separator);//Get the sample image path
+        getline(lines, classlabel);//Get the label
         //printf("%s---\n", classlabel.c_str());
 
         if (!path.empty() && !classlabel.empty())
@@ -171,8 +170,8 @@ bool people_face::start_train()
                 cout << "err1"<<endl;
                 break;
             }
-            images.push_back(image_one);//样本图片放入容器
-            labels.push_back(atoi(classlabel.c_str()));//标签放入容器
+            images.push_back(image_one);//place sample image in the container
+            labels.push_back(atoi(classlabel.c_str()));//place lable in the container
         }
     }
 
@@ -182,7 +181,7 @@ bool people_face::start_train()
         return -1;
     }
 
-    //训练模型  LBPHFaceRecognizer
+    //train the lable   LBPHFaceRecognizer
     //Ptr<FaceRecognizer> model = createLBPHFaceRecognizer();
     Ptr<FaceRecognizer> model = LBPHFaceRecognizer::create();
     model->train(images, labels);
@@ -192,9 +191,9 @@ bool people_face::start_train()
     return 1;
 }
 /*
-    人脸识别预测函数，按键识别 按钮触发。
-    输入：图像、检测出的人脸rect
-    输出：识别结果（string name）
+    Face recognition prediction function, key recognition button trigger
+    Input: Image, face been detected ( rect )
+    Output: detect results ( String name )
 */
 string people_face::start_predict(Mat frame,vector<Rect> faces)
 {
@@ -208,7 +207,7 @@ string people_face::start_predict(Mat frame,vector<Rect> faces)
 
     vector<string> m;
     vector<int> l;
-    read_names(m,l);         //得到名字和标签对应的容器组
+    read_names(m,l);         //Get the container group corresponding to the name and label
     cout << "samples loaded! "<<endl;
     string result_name = "None";
     Mat gray;
@@ -216,17 +215,17 @@ string people_face::start_predict(Mat frame,vector<Rect> faces)
     for (int i = 0; i < faces.size(); i++)
         {
             Mat dst;
-            resize(frame(faces[i]), dst, Size(100, 100));//规范尺寸用于后续人脸识别
-            cvtColor(dst, dst, COLOR_BGR2GRAY);//灰度化
-            rectangle(frame, faces[i], Scalar(0, 255, 0), 2, 8, 0);//在窗口中框出人脸
+            resize(frame(faces[i]), dst, Size(100, 100));//Specification size for subsequent face recognition
+            cvtColor(dst, dst, COLOR_BGR2GRAY);//Grayscale
+            rectangle(frame, faces[i], Scalar(0, 255, 0), 2, 8, 0);//Frame the face in the window
             int predictedLabel = -1;
             double confidence = 0.0;
-                model->predict(dst, predictedLabel, confidence);//对窗口中人脸进行识别，给出预测标签并赋于predictedLabel
-            string result_message = format("Predicted number = %d / confidence = %2f.", predictedLabel, confidence);//查看标签和置信度
+                model->predict(dst, predictedLabel, confidence);//Recognize The face in the window, give prediction label and assign to  predictedLabel 
+            string result_message = format("Predicted number = %d / confidence = %2f.", predictedLabel, confidence);//Review the labels and confidence levels
             cout << result_message << endl;
 
-            //不同人对应的不同标签
-        if(confidence > 100){                         //这里修改参数，越大则越容易误识别；越小越准，但容易识别不到。 ****************************************************************************
+            //Different labels for different people
+        if(confidence > 100){                         //Modify the parameters  ****************************************************************************
             predictedLabel = 100;                // recognize false
         }
         if (predictedLabel < m.size()){
@@ -239,14 +238,14 @@ string people_face::start_predict(Mat frame,vector<Rect> faces)
         putText(frame, result_name, Point(faces[i].x,faces[i].y-10), FONT_HERSHEY_PLAIN, 4.0, Scalar(0, 0, 255), 2, 8);
             /*
              * 	void cv::putText(
-                cv::Mat& img, // 待绘制的图像
-                const string& text, // 待绘制的文字
-                cv::Point origin, // 文本框的左下角
-                int fontFace, // 字体 (如cv::FONT_HERSHEY_PLAIN)
-                double fontScale, // 尺寸因子，值越大文字越大
-                cv::Scalar color, // 线条的颜色（RGB）
-                int thickness = 1, // 线条宽度
-                int lineType = 8, // 线型（4邻域或8邻域，默认8邻域）
+                cv::Mat& img, // The image to be drawn
+                const string& text, // The text to be drawn
+                cv::Point origin, // The lower-left corner of the text box
+                int fontFace, // font 
+                double fontScale, // Size factor
+                cv::Scalar color, // The color of the line（RGB）
+                int thickness = 1, // Line width
+                int lineType = 8, // Linetype 
                 bool bottomLeftOrigin = false // true='origin at lower left'
              */
         }
@@ -256,7 +255,7 @@ string people_face::start_predict(Mat frame,vector<Rect> faces)
 }
 
 /*
-    初始化检测器与识别器；start 按钮触发
+    Initializes the detector and recognizer; trigger start button
 */
 int people_face::deal_init()
 {
@@ -270,10 +269,9 @@ int people_face::deal_init()
 }
 
 /*
-    人脸检测函数，start按钮
-    输入：图片
-        function_choose，这个参数=100,则代表接下来函数wu显示。
-    输出： 检测的人脸rect
+    Face detection function-matches start button
+    input:picture
+    Output: Detected face - rect
 */
 vector<Rect> people_face::start_detect(Mat frame,int function_choose)
 {
@@ -285,9 +283,9 @@ vector<Rect> people_face::start_detect(Mat frame,int function_choose)
     for (int i = 0; i < faces.size(); i++)
         {
             Mat dst;
-            resize(frame(faces[i]), dst, Size(100, 100));//规范尺寸用于后续人脸识别
-            cvtColor(dst, dst, COLOR_BGR2GRAY);//灰度化
-            rectangle(frame, faces[i], Scalar(255, 0, 0), 2, 8, 0);//在窗口中框出人脸
+            resize(frame(faces[i]), dst, Size(100, 100));//Specification size for subsequent face recognition
+            cvtColor(dst, dst, COLOR_BGR2GRAY);//grayscale
+            rectangle(frame, faces[i], Scalar(255, 0, 0), 2, 8, 0);//Frame the face in the window
          }
     return faces;
 }
