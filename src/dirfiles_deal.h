@@ -1,0 +1,5 @@
+#ifndef DIRFILES_DEAL_H
+#define DIRFILES_DEAL_H
+
+
+#endif // DIRFILES_DEAL_H
