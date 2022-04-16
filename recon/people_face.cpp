@@ -20,16 +20,15 @@
 using namespace cv;
 using namespace std;
 
-/*
- *    算法  主要在这个文件， 包括     预处理:灰度化、直方图均衡化
- *                                 人脸检测
- *                                 人脸识别
- *   功能：   样本采集、   模型训练、  人脸识别
+/*    Face detection
+ *    Functions: sample collection, model training, face recognition
+ *                                 
+ *    Pre-treatment: grayscale, histogram equalization                            
  */
 
 string filepath = "./label/trainer.yml";//customer face recognize model
 string haar_face_datapath = "/home/pi/opencv/opencv-4.5.0/data/haarcascades/haarcascade_frontalface_alt.xml";//人脸检测分类器位置
-string listpath = "./label/train_list.csv";//csv文件位置（图片路径和标签组成的文本）  //train_list
+string listpath = "./label/train_list.csv";//Csv file location (text consisting of image path and label)  //train_list
 
 string facesdir = "./face";
 string names_file = "./label/face_recognizenames_file.txt";
