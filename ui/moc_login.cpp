@@ -45,7 +45,7 @@ QT_MOC_LITERAL(3, 29, 18) // "on_loginpb_clicked"
 static const uint qt_meta_data_Login[] = {
 
  // content:
-       7,       // revision
+       7,       // revision 
        0,       // classname
        0,    0, // classinfo
        2,   14, // methods
@@ -53,7 +53,7 @@ static const uint qt_meta_data_Login[] = {
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       0,       // signalCount 
 
  // slots: name, argc, parameters, tag, flags
        1,    0,   24,    2, 0x08 /* Private */,
@@ -63,7 +63,7 @@ static const uint qt_meta_data_Login[] = {
     QMetaType::Void,
     QMetaType::Void,
 
-       0        // eod
+       0        //  eod
 };
 
 void Login::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
