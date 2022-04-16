@@ -29,4 +29,4 @@ private:
     Register *reg;
 };
 
-#endif // LOGIN_H
+#endif //  LOGIN_H
