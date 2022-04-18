@@ -18,7 +18,6 @@ The project aims to develop a time attendance system based on face recognition. 
 
 **Methodologies:**
 
-* SVM
 * QT C++
 * OpenCV C++
 
