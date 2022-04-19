@@ -22,11 +22,12 @@ The project aims to develop a time attendance system based on face recognition. 
 * OpenCV C++
 
 **Work description**
-*Raspberry Pi environment configuration (Yunpeng Tang)  
-*Coding of QT  (Ge Cheng, Yandan lai)
-*Coding of face recognition function  (Jingyu Wu, Yunpeng Tang)
-*Code compilation on Raspberry Pi (Ge Cheng, Jingyu Wu)
-*Video Production (Yandan Lai)
+
+Raspberry Pi environment configuration (Yunpeng Tang)  
+Coding of QT  (Ge Cheng, Yandan lai)
+Coding of face recognition function  (Jingyu Wu, Yunpeng Tang)
+Code compilation on Raspberry Pi (Ge Cheng, Jingyu Wu)
+Video Production (Yandan Lai)
 
 **Install the QT development environment:**
 
