@@ -5,9 +5,9 @@
 # Introductions:
 Face recognition is a kind of biometric recognition technology that is based on the identity of people's facial feature information. At present, a lot of research have been carried out on face recognition systems, but mainly based on PC architecture recognition technology, for some special occasions, portability and flexibility are not enough. To this end, this project introduces a real-time processing face recognition system based on embedded technology.
 
-The project aims to develop a time attendance system based on face recognition. The camera is used to automatically detect the face information of the attendance, and the openCV is used to process the collected face images and video streams, enter the user's face information, and when the follow-up user passes the camera again, the system will compare the collected real-time images with the pre-established face which was stored in the database and record the attendance information. This project uses the Raspberry Pi 4B as the hardware platform.
+The project aims to develop a time attendance system based on face recognition. The camera is used to automatically detect the face information of the attendance, and the openCV is used to process the collected face images and video streams. First we need to take samples of the user's face information, and when the user passes the camera again, the system will compare the collected real-time images with the pre-established face which was stored in the database and record the attendance information. This project uses the Raspberry Pi 4B as the hardware platform.
 
-**Author**：Yandan Lai(2714855L), Yunpeng Tang(2663224Y), Ge Cheng(2644025C), Jingyu Wu(2492041W
+**Author**：Yandan Lai(2714855L), Yunpeng Tang(2663224Y), Ge Cheng(2644025C), Jingyu Wu(2492041W)
 
 **Components：**<br>
 * PC with Ubuntu
