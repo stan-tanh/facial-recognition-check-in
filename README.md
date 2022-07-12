@@ -81,6 +81,7 @@ This project is established by students from University of Glasgow:
 - [Yandan Lai, 2714855L](https://github.com/HedgehogHut0)
 - [Ge Cheng, 2644025C](https://github.com/ChengGe010)
 - [Jingyu Wu, 2492041W](https://github.com/Whatsssssup)
+- [Hanze Li, 2690422L](https://github.com/EkkoLii)
 
 # Social Media:
 <br><a href="https://www.youtube.com/watch?v=ZPZ2JaBAh70" target="blank"><img align="left" src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" height="40" width="40"/>
